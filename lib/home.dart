@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/add_report_page.dart';
+import 'package:tugas_akhir/report_page.dart';
 import 'API/gempa_service.dart';
 import 'API/gempa.dart';
 import 'ruler_view.dart';
@@ -98,7 +100,6 @@ class _HomeState extends State<Home> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500),
             ),
-            
           ],
         ),
       ),
@@ -115,11 +116,15 @@ class _HomeState extends State<Home> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
         ),
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          color: Colors.white,
-          tooltip: 'Menu',
-          onPressed: () {},
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            color: Colors.white,
+            tooltip: 'Menu',
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
         ),
         actions: [
           IconButton(
@@ -179,8 +184,8 @@ class _HomeState extends State<Home> {
                                   : double.parse(gempa?[0].magnitude ?? '0.0') >
                                           5.0
                                       ? 'Strong'
-                                      : double.parse(
-                                                  gempa?[0].magnitude ?? '0.0') >
+                                      : double.parse(gempa?[0].magnitude ??
+                                                  '0.0') >
                                               3.0
                                           ? 'Moderate'
                                           : 'Light'
@@ -221,7 +226,8 @@ class _HomeState extends State<Home> {
                           height: 500,
                           child: Stack(
                             children: [
-                              RulerView(size: 400, magnitude: gempa?[0].magnitude),
+                              RulerView(
+                                  size: 400, magnitude: gempa?[0].magnitude),
                               const Positioned(
                                 top: 50.0,
                                 left: 0,
@@ -323,8 +329,8 @@ class _HomeState extends State<Home> {
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        gempa?.length, // Change this to the number of cards you want to display
+                                    itemCount: gempa
+                                        ?.length, // Change this to the number of cards you want to display
                                     itemBuilder: (context, index) {
                                       return buildEarthquakeCard(gempa?[index]);
                                     },
@@ -342,6 +348,72 @@ class _HomeState extends State<Home> {
             );
           }
         },
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'Earthquake App',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 35,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close),
+                      color: Colors.white,
+                    )
+                  ],
+                )),
+            ListTile(
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            Builder(
+              builder: (context) => ListTile(
+                title: const Text('Reports'),
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReportPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Builder(
+              builder: (context) => ListTile(
+                title: const Text('Add Reports'),
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddReportPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

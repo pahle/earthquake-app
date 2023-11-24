@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:tugas_akhir/home.dart';
+import 'package:tugas_akhir/login_page.dart';
 import 'package:tugas_akhir/report.dart';
 
-Box? box;
+// Box? box;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  box = await Hive.openBox<Report>("reportsBox");
-  Hive.registerAdapter(ReportAdapter());
+  Hive.registerAdapter<Report>(ReportAdapter());
+  await Hive.openBox<Report>("reportsBox");
   runApp(const MyApp());
 }
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black54),
         useMaterial3: true,
       ),
-      home: Home(title: 'Earthquake App'),
+      home: const LoginPage(),
     );
   }
 }

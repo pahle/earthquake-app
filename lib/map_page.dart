@@ -47,8 +47,8 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text(
-          'Earthquake App',
+        title: const Text(
+          'Earthquake Map',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
         backgroundColor: Colors.transparent,
@@ -58,7 +58,7 @@ class _MapPageState extends State<MapPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a loading indicator while waiting for data
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
             // Display an error message if there's an error
             return const Center(
@@ -70,9 +70,9 @@ class _MapPageState extends State<MapPage> {
             final gempa = gempaModel.infogempa?.gempa;
 
             return FlutterMap(
-              options: MapOptions(
-                center: LatLng(3.498904,116.130988), // Initial map center
-                zoom: 4.0, // Initial zoom level
+              options: const MapOptions(
+                initialCenter: LatLng(3.498904,116.130988), // Initial map center
+                initialZoom: 4.0, // Initial zoom level
               ),
               children: [
                 TileLayer(
@@ -93,7 +93,7 @@ class _MapPageState extends State<MapPage> {
                                   double.parse(gempaList.coordinates!
                                       .split(",")[1]),
                                 )
-                              : LatLng(0.0, 0.0),
+                              : const LatLng(0.0, 0.0),
                           child: InkWell(
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(gempa: gempaList)));

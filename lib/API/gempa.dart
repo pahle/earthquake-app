@@ -5,14 +5,14 @@ class GempaModel {
 
   GempaModel.fromJson(Map<String, dynamic> json) {
     infogempa = json['Infogempa'] != null
-        ? new Infogempa.fromJson(json['Infogempa'])
+        ? Infogempa.fromJson(json['Infogempa'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.infogempa != null) {
-      data['Infogempa'] = this.infogempa!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (infogempa != null) {
+      data['Infogempa'] = infogempa!.toJson();
     }
     return data;
   }
@@ -27,15 +27,15 @@ class Infogempa {
     if (json['gempa'] != null) {
       gempa = <Gempa>[];
       json['gempa'].forEach((v) {
-        gempa!.add(new Gempa.fromJson(v));
+        gempa!.add(Gempa.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.gempa != null) {
-      data['gempa'] = this.gempa!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (gempa != null) {
+      data['gempa'] = gempa!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -79,17 +79,17 @@ class Gempa {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Tanggal'] = this.tanggal;
-    data['Jam'] = this.jam;
-    data['DateTime'] = this.dateTime;
-    data['Coordinates'] = this.coordinates;
-    data['Lintang'] = this.lintang;
-    data['Bujur'] = this.bujur;
-    data['Magnitude'] = this.magnitude;
-    data['Kedalaman'] = this.kedalaman;
-    data['Wilayah'] = this.wilayah;
-    data['Potensi'] = this.potensi;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Tanggal'] = tanggal;
+    data['Jam'] = jam;
+    data['DateTime'] = dateTime;
+    data['Coordinates'] = coordinates;
+    data['Lintang'] = lintang;
+    data['Bujur'] = bujur;
+    data['Magnitude'] = magnitude;
+    data['Kedalaman'] = kedalaman;
+    data['Wilayah'] = wilayah;
+    data['Potensi'] = potensi;
     return data;
   }
 }

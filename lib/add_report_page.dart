@@ -7,6 +7,8 @@ class AddReportPage extends StatelessWidget {
   final _wilayah = TextEditingController();
   final _tanggal = TextEditingController();
 
+  AddReportPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,16 +59,7 @@ class AddReportPage extends StatelessWidget {
         wilayah: _wilayah.text,
         tanggal: _tanggal.text,
       ),
-    );
-
-    // add a snakcbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Report Added"),
-      ),
-    );
-    
-
+    );    
     Navigator.pop(context);
   }
 }

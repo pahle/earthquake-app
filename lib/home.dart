@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/add_report_page.dart';
+import 'package:tugas_akhir/money_convert_page.dart';
+import 'package:tugas_akhir/profile_page.dart';
 import 'package:tugas_akhir/report_page.dart';
+import 'package:tugas_akhir/time_convert_page.dart';
 import 'API/gempa_service.dart';
 import 'API/gempa.dart';
 import 'ruler_view.dart';
@@ -13,10 +16,10 @@ class Home extends StatefulWidget {
   final String title;
 
   @override
-  _HomeState createState() => _HomeState();
+  HomeState createState() => HomeState();
 }
 
-class _HomeState extends State<Home> {
+class HomeState extends State<Home> {
   Future<Map<String, dynamic>>? gempaData;
 
   @override
@@ -113,7 +116,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(
           widget.title,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
         ),
         backgroundColor: Colors.transparent,
         leading: Builder(
@@ -136,7 +139,7 @@ class _HomeState extends State<Home> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MapPage(),
+                  builder: (context) => const MapPage(),
                 ),
               );
             },
@@ -148,7 +151,7 @@ class _HomeState extends State<Home> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a loading indicator while waiting for data
-            return CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             // Display an error message if there's an error
             return const Center(
@@ -195,7 +198,7 @@ class _HomeState extends State<Home> {
                               fontSize: 50,
                               fontWeight: FontWeight.w700),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
@@ -221,7 +224,7 @@ class _HomeState extends State<Home> {
                               fontSize: 18,
                               fontWeight: FontWeight.w500),
                         ),
-                        Container(
+                        SizedBox(
                           width: 400,
                           height: 500,
                           child: Stack(
@@ -271,7 +274,7 @@ class _HomeState extends State<Home> {
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    const SizedBox(width: 100),
+                                    const SizedBox(width: 90),
                                     const Icon(
                                       Icons.timelapse,
                                       size: 24.0,
@@ -290,7 +293,7 @@ class _HomeState extends State<Home> {
                               ),
                               Positioned(
                                 top: 0,
-                                child: Container(
+                                child: SizedBox(
                                   height: 100,
                                   width: 100,
                                   child: ListView(
@@ -309,10 +312,10 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                               ),
-                              Positioned(
+                              const Positioned(
                                 top: 250,
                                 child: Text('Latest Earthquake',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 24,
                                         fontWeight: FontWeight.w700)),
@@ -354,26 +357,26 @@ class _HomeState extends State<Home> {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.black54,
                 ),
                 child: Row(
                   children: [
-                    Text(
+                    const Text(
                       'Earthquake App',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 35,
                     ),
                     IconButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                       color: Colors.white,
                     )
                   ],
@@ -392,7 +395,7 @@ class _HomeState extends State<Home> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ReportPage(),
+                      builder: (context) => const ReportPage(),
                     ),
                   );
                 },
@@ -407,6 +410,48 @@ class _HomeState extends State<Home> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => AddReportPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Builder(
+              builder: (context) => ListTile(
+                title: const Text('Profile'),
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfilePage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Builder(
+              builder: (context) => ListTile(
+                title: const Text('Money Converter'),
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MoneyConvertPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Builder(
+              builder: (context) => ListTile(
+                title: const Text('Time Converter'),
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TimeConvertPage(),
                     ),
                   );
                 },

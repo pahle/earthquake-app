@@ -15,7 +15,7 @@ class RulerView extends StatefulWidget {
 class _RulerViewState extends State<RulerView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       // margin: const EdgeInsets.only(left: 0),
       width: widget.size,
       height: widget.size,

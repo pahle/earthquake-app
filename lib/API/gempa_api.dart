@@ -18,12 +18,7 @@ class GempaAPI {
       final jsonBody = json.decode(body);
       return jsonBody;
     } else {
-      print("processResponse error");
       return {"error": true};
     }
-  }
-
-  static void debugPrint(String value) {
-    print("[BASE_NETWORK] - $value");
   }
 }

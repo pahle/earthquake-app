@@ -29,7 +29,7 @@ class _DetailPageState extends State<DetailPage> {
             children: [
               Text(
                 'Magnitude: ${widget.gempa?.magnitude ?? 'N/A'}',
-                style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
               Text(
                 'Location: ${widget.gempa?.wilayah ?? 'N/A'}',

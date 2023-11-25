@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/add_report_page.dart';
+import 'package:tugas_akhir/kesan_page.dart';
+import 'package:tugas_akhir/login_page.dart';
 import 'package:tugas_akhir/money_convert_page.dart';
 import 'package:tugas_akhir/profile_page.dart';
 import 'package:tugas_akhir/report_page.dart';
@@ -9,6 +11,7 @@ import 'API/gempa.dart';
 import 'ruler_view.dart';
 import 'map_page.dart';
 import 'detail_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, required this.title}) : super(key: key);
@@ -59,50 +62,38 @@ class HomeState extends State<Home> {
       child: Container(
         width: 300,
         height: 200,
-        margin: const EdgeInsets.all(10),
+        margin: const EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              gempa?.magnitude ?? '0.0',
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700),
-            ),
-            Text(
-              extractEarthquakeLocation(gempa?.wilayah) ?? 'Not Available',
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
+              gempa?.wilayah ?? '0.0',
               textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
             Text(
-              '${gempa?.kedalaman ?? '0.0'} depth',
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
+              gempa?.magnitude ?? '0.0',
+              style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
             ),
-            Text(
-              gempa?.tanggal ?? 'Not Available',
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
-            ),
-            Text(
-              gempa?.jam ?? 'Not Available',
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${gempa?.kedalaman ?? '0.0'} depth',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  gempa?.tanggal ?? '0.0',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -116,7 +107,8 @@ class HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(
           widget.title,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
         ),
         backgroundColor: Colors.transparent,
         leading: Builder(
@@ -382,6 +374,7 @@ class HomeState extends State<Home> {
                   ],
                 )),
             ListTile(
+              leading: const Icon(Icons.home),
               title: const Text('Home'),
               onTap: () {
                 Navigator.pop(context);
@@ -389,6 +382,7 @@ class HomeState extends State<Home> {
             ),
             Builder(
               builder: (context) => ListTile(
+                leading: const Icon(Icons.report),
                 title: const Text('Reports'),
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
@@ -403,6 +397,7 @@ class HomeState extends State<Home> {
             ),
             Builder(
               builder: (context) => ListTile(
+                leading: const Icon(Icons.add),
                 title: const Text('Add Reports'),
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
@@ -417,6 +412,7 @@ class HomeState extends State<Home> {
             ),
             Builder(
               builder: (context) => ListTile(
+                leading: const Icon(Icons.person),
                 title: const Text('Profile'),
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
@@ -431,6 +427,7 @@ class HomeState extends State<Home> {
             ),
             Builder(
               builder: (context) => ListTile(
+                leading: const Icon(Icons.money),
                 title: const Text('Money Converter'),
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
@@ -445,6 +442,7 @@ class HomeState extends State<Home> {
             ),
             Builder(
               builder: (context) => ListTile(
+                leading: const Icon(Icons.timelapse),
                 title: const Text('Time Converter'),
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
@@ -452,6 +450,40 @@ class HomeState extends State<Home> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const TimeConvertPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Builder(
+              builder: (context) => ListTile(
+                leading: const Icon(Icons.feedback),
+                title: const Text('Kesan & Pesan'),
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const KesanPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            // Logout
+            Builder(
+              builder: (context) => ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                onTap: () async {
+                  Scaffold.of(context).closeDrawer();
+                  await const FlutterSecureStorage().write(key: 'is_logged_in', value: 'false');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const LoginPage();
+                      },
                     ),
                   );
                 },

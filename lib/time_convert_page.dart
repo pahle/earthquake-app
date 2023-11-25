@@ -27,8 +27,8 @@ class TimeConvertPageState extends State<TimeConvertPage> {
           children: [
             TextField(
               controller: _inputController,
-              keyboardType: TextInputType.datetime,
-              decoration: const InputDecoration(labelText: 'Enter Time (HH:mm:ss)'),
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(labelText: 'Enter Time (HH:mm:ss)', border: OutlineInputBorder()),
               onChanged: (value) => _convertTime(),
             ),
             const SizedBox(height: 20),

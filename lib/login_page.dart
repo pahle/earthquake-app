@@ -18,25 +18,39 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(25.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'Login Page',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
+            ),
+            const SizedBox(height: 25),
             TextField(
               controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Username'),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black87),
+                ),
+                labelText: 'Username',
+              ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 25),
             TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black87),
+                ),
+                labelText: 'Password',
+              ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 25),
             ElevatedButton(
               onPressed: () => _login(context),
               child: const Text('Login'),
@@ -62,6 +76,8 @@ class LoginPageState extends State<LoginPage> {
     if (hashedData == 'ca4d6d1d8ed7ea05a0fb3c83aee9e7ff8a686f38682e582c42be050efe85c2e2') {
       // Store a token or flag indicating the user is logged in (for simplicity, not secure)
       await const FlutterSecureStorage().write(key: 'is_logged_in', value: 'true');
+
+      print(hashedData);
 
       // Navigate to the report page
       Navigator.pushReplacement(context,

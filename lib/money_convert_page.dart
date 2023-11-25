@@ -34,7 +34,7 @@ class MoneyConvertPageState extends State<MoneyConvertPage> {
             TextField(
               controller: _inputController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Enter Amount'),
+              decoration: const InputDecoration(labelText: 'Enter Amount', border: OutlineInputBorder()),
               onChanged: (value) => _convertCurrency(),
             ),
             const SizedBox(height: 20),

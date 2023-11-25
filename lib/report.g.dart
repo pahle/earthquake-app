@@ -8,7 +8,7 @@ part of 'report.dart';
 
 class ReportAdapter extends TypeAdapter<Report> {
   @override
-  final int typeId = 1;
+  final int typeId = 0;
 
   @override
   Report read(BinaryReader reader) {
@@ -20,19 +20,22 @@ class ReportAdapter extends TypeAdapter<Report> {
       kerusakan: fields[0] as String,
       wilayah: fields[1] as String,
       tanggal: fields[2] as String,
+      imagePath: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Report obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.kerusakan)
       ..writeByte(1)
       ..write(obj.wilayah)
       ..writeByte(2)
-      ..write(obj.tanggal);
+      ..write(obj.tanggal)
+      ..writeByte(3)
+      ..write(obj.imagePath);
   }
 
   @override
